@@ -29,6 +29,8 @@ import {PlayerBoardComponent} from './player-board-component';
         <player-board
             *ng-for="#player of players"
             [player]="player"
+            [on_ships_board_clicked]="onShipsBoardClicked"
+            [on_hits_board_clicked]="onHitsBoardClicked"
         > <span>error {{player.name}}</span>
         </player-board>
         `,
@@ -64,6 +66,14 @@ export class MyApp {
     }
     getSelectedClass(player: Player) {
         return { 'selected': player === this.selectedPlayer };
+    }
+    
+    onShipsBoardClicked(player : Player, x : number, y : number) {
+        console.log("mmmmm: " + x + ", " + y);
+    }
+    
+    onHitsBoardClicked(player : Player, x : number, y : number) {
+        console.log("mmmmmsssss: " + x + ", " + y);
     }
 }
 
