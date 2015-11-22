@@ -17,16 +17,21 @@
     "connect": "^3.3.4",
     "del": "~1.1.1",
     "gulp": "~3.8.10",
+    "gulp-concat": "^2.5.2",
     "gulp-plumber": "^1.0.0",
     "gulp-rename": "~1.2.0",
+    "gulp-shell": "^0.3.0",
     "gulp-size": "^1.2.1",
     "gulp-traceur": "0.17.*",
     "open": "0.0.5",
+    "run-sequence": "^1.0.2",
     "serve-static": "~1.8.1"
   },
   "dependencies": {
     "angular2": "2.0.0-alpha.37",
     "reflect-metadata": "^0.1.0",
-    "systemjs": "0.18.4"
+    "rtts_assert": "^2.0.0-alpha.7",
+    "systemjs": "0.18.4",
+    "zone.js": "^0.4.1"
   }
 }

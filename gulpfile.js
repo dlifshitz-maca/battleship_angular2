@@ -1,8 +1,11 @@
 var gulp = require('gulp');
+var shell = require('gulp-shell');
 var del = require('del');
+var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var traceur = require('gulp-traceur');
+var runSequence = require('run-sequence');
 
 var PATHS = {
     src: {
@@ -17,8 +20,12 @@ var PATHS = {
     ]
 };
 
-gulp.task('clean', function(done) {
-  del(['dist'], done);
+gulp.task('clean', function(cb) {
+  del([
+    './angular2',
+    './rtts_assert',
+    './dist'
+  ], cb);
 });
 
 gulp.task('js', function () {
