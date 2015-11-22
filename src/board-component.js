@@ -2,8 +2,6 @@ import {ComponentMetadata as Component, ViewMetadata as View, bootstrap, FORM_DI
 import {Board} from './board';
 import {Player} from './player';
 
-//import {MyApp} from './hello';
-
 @Component({
     selector: 'board',
     properties: ['board', 'on_square_clicked']
@@ -29,8 +27,6 @@ import {Player} from './player';
 })
 export class BoardComponent {
     board: Board;
-    //player: Player;
-    //onSquareClicked : Function;
     
     constructor() {
     }
@@ -51,12 +47,6 @@ export class BoardComponent {
             return "UNK";
         }
     };
-    
-    /*onSquareClicked(x : number, y : number) {
-        //MyApp.onSquareClicked(this.player, this.board, x, y);
-        //console.log(this.ooo);
-        this.ooo(x, y);
-    };*/
     
     range() {
         var total = Board.SIZE;
