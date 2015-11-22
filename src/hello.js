@@ -60,6 +60,12 @@ export class MyApp {
         setTimeout(() => {
           this.name = 'NEW Wordddld'
         }, 2000);
+        
+        var that = this;
+        
+        this.onHitsBoardClicked = function(player : Player, x : number, y : number) {
+            that.onHitsBoardClicked_(player, x, y);
+        };
     }
     onSelect(player: Player) {
         this.selectedPlayer = player;
@@ -68,12 +74,68 @@ export class MyApp {
         return { 'selected': player === this.selectedPlayer };
     }
     
-    onShipsBoardClicked(player : Player, x : number, y : number) {
-        console.log("mmmmm: " + x + ", " + y);
+    getOpponent(player : Player) {
+        // TODO: improve on this
+        if(player === this.players[0]) {
+            return this.players[1];
+        }
+        else {
+            return this.players[0];
+        }
     }
     
-    onHitsBoardClicked(player : Player, x : number, y : number) {
+    onShipsBoardClicked(player : Player, x : number, y : number) {
+        console.log("mmmmm: " + x + ", " + y);
+        var board = player.shipsBoard;
+        var squareType = board.getXY(x, y);
+        var newSquareType;
+        switch(squareType) {
+        case Board.SquareType.EMPTY:
+            newSquareType = Board.SquareType.SHIP;
+            break;
+        case Board.SquareType.SELECTION:
+            // TODO: fill in the ship
+            break;
+        case Board.SquareType.SHIP:
+            return;
+        case Board.SquareType.HIT:
+            return;
+        case Board.SquareType.MISS:
+            return;
+        default:
+            return;
+        }
+        
+        board.setXY(x, y, newSquareType);
+    }
+    
+    onHitsBoardClicked_(player : Player, x : number, y : number) {
         console.log("mmmmmsssss: " + x + ", " + y);
+        var board = player.hitsBoard;
+        var squareType = board.getXY(x, y);
+        var newSquareType;
+        switch(squareType) {
+        case Board.SquareType.EMPTY:
+            if(this.getOpponent(player).shipsBoard.getXY(x, y) == Board.SquareType.SHIP) {
+                newSquareType = Board.SquareType.HIT;
+            }
+            else {
+                newSquareType = Board.SquareType.MISS;
+            }
+            break;
+        case Board.SquareType.SELECTION:
+            return;
+        case Board.SquareType.SHIP:
+            return;
+        case Board.SquareType.HIT:
+            return;
+        case Board.SquareType.MISS:
+            return;
+        default:
+            return;
+        }
+        
+        board.setXY(x, y, newSquareType);
     }
 }
 

@@ -13,15 +13,24 @@ import {Player} from './player';
             <div *ng-for="#y of range()">
                 <button
                     *ng-for="#x of range()"
-                    (click)="on_square_clicked(x, y);"
+                    [ng-class]="getSquareClass(x, y)"
+                    (click)="on_square_clicked(x, y)"
                 >
-                    {{getSquareTypeText(board.getXY(x, y))}}
+                    {{getSquareTypeText(x, y)}}
                 </button>
             </div>
         </div>
         
         `,
     styles:[`
+    `],
+    styles:[`
+        button { width: 55px; }
+        .square_empty { background-color: #FFF; color: #CCC; }
+        .square_selection { background-color: #0F0; color: #0C0; }
+        .square_ship { background-color: #00F; color: #00C; }
+        .square_hit { background-color: #F00; color: #C00; }
+        .square_miss { background-color: #000; color: #500; }
     `],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
@@ -31,7 +40,8 @@ export class BoardComponent {
     constructor() {
     }
     
-    getSquareTypeText(squareType : string) {
+    getSquareTypeText(x : number, y : number) {
+        var squareType = this.board.getXY(x, y);
         switch(squareType) {
         case Board.SquareType.EMPTY:
             return "EMP";
@@ -47,6 +57,24 @@ export class BoardComponent {
             return "UNK";
         }
     };
+    
+    getSquareClass(x : number, y : number) {
+        var squareType = this.board.getXY(x, y);
+        switch(squareType) {
+        case Board.SquareType.EMPTY:
+            return "square_empty";
+        case Board.SquareType.SELECTION:
+            return "square_selection";
+        case Board.SquareType.SHIP:
+            return "square_ship";
+        case Board.SquareType.HIT:
+            return "square_hit";
+        case Board.SquareType.MISS:
+            return "square_miss";
+        default:
+            return "";
+        }
+    }
     
     range() {
         var total = Board.SIZE;
